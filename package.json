@@ -1,0 +1,15 @@
+{
+  "name": "listing-context",
+  "version": "1.0.0",
+  "description": "listing service",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node start "
+  },
+  "author": "stephanie and lukas",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
