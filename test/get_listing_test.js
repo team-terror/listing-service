@@ -7,11 +7,6 @@ var dynamoMock = {
     filterExpression: [],
     expressionAttributeValues: []
 }
- 
-AWS.mock('DynamoDB.DocumentClient', 'get', function (params, callback) {
-    dynamoMock.calls++;
-    dynamoMock.items.push(params.Item)
-});
 
 AWS.mock('DynamoDB.DocumentClient', 'scan', function (params, callback) {
     dynamoMock.calls++;
@@ -74,6 +69,17 @@ describe('get listing', function() {
             }
 
             assert.throws(f, Error, "invalid dates given");
+            assert.equal(dynamoMock.calls, 0)
+        })
+        it('fails when event does not contain a listing_id or start_date/end_date', function() {
+            var mockEvent = {
+                minimum_num_days: 1
+            }
+            var f = function(){
+                fetch_listing.getListing(mockEvent);
+            }
+
+            assert.throws(f, Error, "no listing id or start/end date specified");
             assert.equal(dynamoMock.calls, 0)
         })
     })
